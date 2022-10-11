@@ -17,12 +17,27 @@ const Sidebar: FC = () => {
         {
             name: 'Product',
             path: '/product',
-            icon: <i className='fa-solid fa-gauge' />
+            icon: <i className='fa-solid fa-box' />
         },
         {
-            name: 'Manage User',
+            name: 'Customer',
+            path: '/customer',
+            icon: <i className='fa-solid fa-users' />
+        },
+        {
+            name: 'Order',
+            path: '/order',
+            icon: <i className='fa-solid fa-box-open' />
+        },
+        {
+            name: 'History',
+            path: '/history',
+            icon: <i className='fa-solid fa-clock-rotate-left' />
+        },
+        {
+            name: 'Role',
             path: '/manage-user',
-            icon: <i className='fa-solid fa-gauge' />
+            icon: <i className='fa-solid fa-user' />
         }
     ];
 
