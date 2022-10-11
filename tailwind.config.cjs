@@ -3,6 +3,10 @@ module.exports = {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {},
+        fontFamily: {
+            prompt: ['Prompt', 'Helvetica', 'arial', 'sans-serif'],
+            thonburi: ['Thonburi', 'Helvetica', 'arial', 'sans-serif']
+        },
         colors: {
             primary: 'var(--primary-color)',
             red: 'var(--red-primary)',
