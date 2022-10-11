@@ -5,6 +5,7 @@ import MainLayout from './layouts/MainLayout';
 import DashboardPage from './pages/DashboardPage';
 import ManageUserPage from './pages/ManageUserPage';
 import Input from './components/Input';
+import ProductPage from './pages/ProductPage';
 
 function App() {
     return (
@@ -12,8 +13,9 @@ function App() {
             <Routes>
                 <Route path='login' element={<LoginPage />} />
                 <Route element={<MainLayout />}>
-                    <Route path='dashboard' caseSensitive element={<DashboardPage />} />
-                    <Route path='manage-user' caseSensitive element={<ManageUserPage />} />
+                    <Route path='dashboard' element={<DashboardPage />} />
+                    <Route path='product' element={<ProductPage />} />
+                    <Route path='manage-user' element={<ManageUserPage />} />
                 </Route>
                 <Route index element={<Navigate to='dashboard' />} />
             </Routes>
