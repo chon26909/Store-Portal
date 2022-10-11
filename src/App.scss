@@ -1,0 +1,19 @@
+* { 
+    box-sizing: border-box;
+}
+
+body, #root {
+    min-height: 100vh;
+}
+
+input { 
+    border: 1px solid blue;
+    display: block;
+    margin: 10px;
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
