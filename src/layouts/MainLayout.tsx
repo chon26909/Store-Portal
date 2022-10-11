@@ -22,9 +22,12 @@ export default MainLayout;
 
 const MainLayoutStyle = styled.div`
     display: flex;
+    flex-wrap: nowrap;
     min-height: calc(100vh - 50px);
 `;
 
 const ContentWapper = styled.div`
     padding: 1rem;
+    background-color: whitesmoke;
+    width: 100%;
 `;
