@@ -11,15 +11,18 @@ const Sidebar: FC = () => {
     const menu_sidebar: ISidebar[] = [
         {
             name: 'Dashboard',
-            path: '/dashboard'
+            path: '/dashboard',
+            icon: <i className='fa-solid fa-gauge' />
         },
         {
             name: 'Product',
-            path: '/product'
+            path: '/product',
+            icon: <i className='fa-solid fa-gauge' />
         },
         {
             name: 'Manage User',
-            path: '/manage-user'
+            path: '/manage-user',
+            icon: <i className='fa-solid fa-gauge' />
         }
     ];
 
@@ -36,7 +39,6 @@ const Sidebar: FC = () => {
                             key={index}
                         >
                             <div>{item.icon}</div>
-
                             <div>{item.name}</div>
                         </NavLink>
                     );

@@ -23,7 +23,7 @@ export default MainLayout;
 const MainLayoutStyle = styled.div`
     display: flex;
     flex-wrap: nowrap;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 60px);
 `;
 
 const ContentWapper = styled.div`

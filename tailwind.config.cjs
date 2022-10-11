@@ -11,7 +11,7 @@ module.exports = {
             primary: 'var(--primary-color)',
             red: 'var(--red-primary)',
             green: 'var(--green-primary)',
-            grey: 'var(--gray-light)'
+            grey: 'var(--gray-lighter)'
         },
         screens: {
             '2xl': { max: '1535px' },
