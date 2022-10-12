@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import styles from '../styles/modal.module.scss';
 import Button from './Button';
 
-interface IConfirmDialogProps {
+interface IDialogProps {
     isOpen: boolean;
     title: string;
     message?: string;
@@ -13,20 +13,20 @@ interface IConfirmDialogProps {
     // onClose: (state: boolean) => void;
 }
 
-const IconDialog = ({ icon }: { icon: IConfirmDialogProps['icon'] }) => {
+const IconDialog = ({ icon }: { icon: IDialogProps['icon'] }) => {
     if (icon === 'success') return <i className='fas fa-circle-check text-green' />;
     else if (icon === 'warning') return <i className='fas fa-circle-exclamation text-primary ' />;
     else if (icon === 'danger') return <i className='fas fa-circle-exclamation text-red' />;
     else return <i></i>;
 };
 
-const ConfirmDialog: FC<IConfirmDialogProps> = (props) => {
+const Dialog: FC<IDialogProps> = (props) => {
     const { isOpen, title, message, icon, onConfirm, onCancel } = props;
     return (
         <AnimatePresence>
             {isOpen ? (
                 <motion.div className={[styles.ModalDackdrop].join(' ')} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <motion.div className={styles.ModalConfirmDialog} initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                    <motion.div className={styles.ModalDialog} initial={{ scale: 0 }} animate={{ scale: 1 }}>
                         <div className='text-center text-[55px]'>
                             <IconDialog icon={icon} />
                         </div>
@@ -48,4 +48,4 @@ const ConfirmDialog: FC<IConfirmDialogProps> = (props) => {
     );
 };
 
-export default ConfirmDialog;
+export default Dialog;

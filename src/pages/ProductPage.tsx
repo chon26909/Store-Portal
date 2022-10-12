@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import CardProduct from '../components/CardProduct';
-import ConfirmDialog from '../components/ConfirmDialog';
+import Dialog from '../components/Dialog';
 import ModalProductAdd from '../components/ModalProductAdd';
 import Title from '../components/Title';
 import productStore from '../store/productStore';
@@ -29,7 +29,7 @@ const ProductPage: FC = () => {
             </Button>
             <ProductList>{data && data.map((item, i) => <CardProduct {...item} key={i} />)}</ProductList>
             <ModalProductAdd isOpen={isOpenModalAdd} onClose={setIsOpenModalAdd} />
-            <ConfirmDialog icon='danger' isOpen={true} title='ต้องการยกเลิกหรือไม่?' message='โปรดตรวจสอบความถูกต้อง' onConfirm={() => console.log('confirm')} onCancel={() => console.log('cancel')} />
+            <Dialog icon='danger' isOpen={true} title='ต้องการยกเลิกหรือไม่?' message='โปรดตรวจสอบความถูกต้อง' onConfirm={() => console.log('confirm')} onCancel={() => console.log('cancel')} />
         </>
     );
 };
