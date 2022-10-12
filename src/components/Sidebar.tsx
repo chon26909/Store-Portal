@@ -10,32 +10,32 @@ const Sidebar: FC = () => {
 
     const menu_sidebar: ISidebar[] = [
         {
-            name: 'Dashboard',
+            name: 'ภาพรวม',
             path: '/dashboard',
             icon: <i className='fa-solid fa-gauge' />
         },
         {
-            name: 'Product',
+            name: 'สินค้า',
             path: '/product',
             icon: <i className='fa-solid fa-box' />
         },
         {
-            name: 'Customer',
+            name: 'ข้อมูลลูกค้า',
             path: '/customer',
             icon: <i className='fa-solid fa-users' />
         },
         {
-            name: 'Order',
+            name: 'คำสั่งซื้อ',
             path: '/order',
             icon: <i className='fa-solid fa-box-open' />
         },
         {
-            name: 'History',
+            name: 'ประวัติการซื้อ',
             path: '/history',
             icon: <i className='fa-solid fa-clock-rotate-left' />
         },
         {
-            name: 'Role',
+            name: 'ผู้ดูแล',
             path: '/manage-user',
             icon: <i className='fa-solid fa-user' />
         }

@@ -1,6 +1,5 @@
 .Sidebar {
-
-    // &.SidebarActive { 
+    // &.SidebarActive {
     //     left: 0;
     // }
 
@@ -11,11 +10,10 @@
     // height: 100%;
     width: var(--sidebar-width);
     overflow-x: hidden;
-    z-index: 98;
+    // z-index: 98;
     background-color: var(--primary-color);
 
     .Menu {
-
         padding: 20px 0 0 20px;
 
         .Item {
@@ -38,7 +36,7 @@
                 background-color: whitesmoke;
 
                 &::before {
-                    content: "";
+                    content: '';
                     width: 30px;
                     height: 30px;
                     background: transparent;
@@ -50,7 +48,7 @@
                 }
 
                 &::after {
-                    content: "";
+                    content: '';
                     width: 30px;
                     height: 30px;
                     background: transparent;
@@ -68,10 +66,10 @@
                 background-color: rgba(255, 255, 255, 0.15);
             }
 
-            &> div:nth-child(1) { 
+            & > div:nth-child(1) {
                 text-align: center;
 
-                i { 
+                i {
                     font-size: 26px;
                 }
             }
