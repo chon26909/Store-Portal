@@ -9,7 +9,6 @@ import productStore from '../store/productStore';
 
 const ProductPage: FC = () => {
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
-    const [isOpenConfirm, setIsOpenConfirm] = useState(false);
 
     const { data, fetchProducts } = productStore();
 
@@ -28,8 +27,7 @@ const ProductPage: FC = () => {
                 เพิ่มสินค้า
             </Button>
             <ProductList>{data && data.map((item, i) => <CardProduct {...item} key={i} />)}</ProductList>
-            <ModalProductAdd isOpen={isOpenModalAdd} onClose={setIsOpenModalAdd} />
-            <Dialog icon='danger' isOpen={true} title='ต้องการยกเลิกหรือไม่?' message='โปรดตรวจสอบความถูกต้อง' onConfirm={() => console.log('confirm')} onCancel={() => console.log('cancel')} />
+            <ModalProductAdd isOpen={isOpenModalAdd} onClose={() => setIsOpenModalAdd(false)} />
         </>
     );
 };

@@ -37,7 +37,7 @@ const Dialog: FC<IDialogProps> = (props) => {
                             <Button className='mx-2 px-[4rem] py-3 bg-tranperent border-grey border-[1px] box-border border=[1px] text-black' onClick={onCancel}>
                                 ยกเลิก
                             </Button>
-                            <Button className={[icon ? 'bg-red border-red' : '', 'mx-2 px-[4rem] py-3 border-primary border-[1px]'].join(' ')} onClick={onConfirm}>
+                            <Button className={[icon === 'danger' ? 'bg-red border-red' : '', 'mx-2 px-[4rem] py-3 border-primary border-[1px]'].join(' ')} onClick={onConfirm}>
                                 ยืนยัน
                             </Button>
                         </div>
