@@ -2,11 +2,12 @@ import { ButtonHTMLAttributes, FC } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
+    full?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, className, ...other }) => {
+const Button: FC<ButtonProps> = ({ children, className, full, ...other }) => {
     return (
-        <button {...other} className={[className, 'shadow-lg bg-primary py-2 px-5 text-white rounded cursor-pointer select-none'].join(' ')}>
+        <button {...other} className={[className, full ? 'w-full' : 'min-w-[130px]', 'shadow-lg bg-primary py-[0.6rem] px-5 text-white rounded cursor-pointer select-none'].join(' ')}>
             {children}
         </button>
     );
