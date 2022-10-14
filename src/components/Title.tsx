@@ -6,7 +6,7 @@ interface TitleProps {
 }
 
 const Title: FC<TitleProps> = ({ children, className }) => {
-    return <div className={[className, 'text-2xl py-3 font-bold'].join(' ')}>{children}</div>;
+    return <div className={[className, 'text-2xl mt-2 mb-1 font-bold'].join(' ')}>{children}</div>;
 };
 
 export default Title;
