@@ -10,7 +10,6 @@ interface IDialogProps {
     icon?: 'success' | 'danger' | 'warning' | undefined;
     onConfirm: () => void;
     onCancel: () => void;
-    // onClose: (state: boolean) => void;
 }
 
 const IconDialog = ({ icon }: { icon: IDialogProps['icon'] }) => {
@@ -34,10 +33,10 @@ const Dialog: FC<IDialogProps> = (props) => {
                         <div className='text-center text-2xl font-bold'>{title}</div>
                         <div className='text-center'>{'' + message}</div>
                         <div className='text-center mt-3'>
-                            <Button className='mx-2 px-[4rem] py-3 bg-tranperent border-grey border-[1px] box-border border=[1px] text-black' onClick={onCancel}>
+                            <Button className='mx-2 px-[4rem] bg-tranperent border-gray border-[1px] box-border border=[1px] text-black' onClick={onCancel}>
                                 ยกเลิก
                             </Button>
-                            <Button className={[icon === 'danger' ? 'bg-red border-red' : '', 'mx-2 px-[4rem] py-3 border-primary border-[1px]'].join(' ')} onClick={onConfirm}>
+                            <Button className={[icon === 'danger' ? 'bg-red border-red' : '', 'mx-2 px-[4rem] border-primary border-[1px]'].join(' ')} onClick={onConfirm}>
                                 ยืนยัน
                             </Button>
                         </div>
