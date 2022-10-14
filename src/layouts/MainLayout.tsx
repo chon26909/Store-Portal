@@ -30,4 +30,11 @@ const ContentWapper = styled.div`
     padding: 1rem;
     background-color: whitesmoke;
     width: 100%;
+    overflow-x: auto;
+
+    & > div {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 5px;
+    }
 `;
