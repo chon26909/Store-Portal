@@ -1,21 +1,21 @@
 import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
+import routes from './routes';
 import MainLayout from './layouts/MainLayout';
-import DashboardPage from './pages/DashboardPage';
-import ManageUserPage from './pages/ManageUserPage';
-import Input from './components/Input';
-import ProductPage from './pages/ProductPage';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='login' element={<LoginPage />} />
+                {routes.public.map((route) => (
+                    <Route key={route.path} path={route.path} element={<route.element />} />
+                ))}
                 <Route element={<MainLayout />}>
-                    <Route path='dashboard' element={<DashboardPage />} />
-                    <Route path='product' element={<ProductPage />} />
-                    <Route path='manage-user' element={<ManageUserPage />} />
+                    {routes.private.map((route) => (
+                        <Route key={route.path} path={route.path} element={<route.element />} />
+                    ))}
+                    <Route path='*' element={<PageNotFound />} />
                 </Route>
                 <Route index element={<Navigate to='dashboard' />} />
             </Routes>
