@@ -16,17 +16,17 @@ const Sidebar: FC = () => {
         },
         {
             name: 'สินค้า',
-            path: '/product',
+            path: '/products',
             icon: <i className='fa-solid fa-box' />
         },
         {
             name: 'ข้อมูลลูกค้า',
-            path: '/customer',
+            path: '/customers',
             icon: <i className='fa-solid fa-users' />
         },
         {
             name: 'คำสั่งซื้อ',
-            path: '/order',
+            path: '/orders',
             icon: <i className='fa-solid fa-box-open' />
         },
         {
@@ -36,7 +36,7 @@ const Sidebar: FC = () => {
         },
         {
             name: 'ผู้ดูแล',
-            path: '/manage-user',
+            path: '/role',
             icon: <i className='fa-solid fa-user' />
         }
     ];
