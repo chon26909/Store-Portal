@@ -12,10 +12,11 @@ module.exports = {
             primary: 'var(--primary-color)',
             red: 'var(--red-primary)',
             green: 'var(--green-primary)',
-            grey: 'var(--gray-lighter)',
-            grey_text: "var(--gray-text)",
-            tranperent: "rgba(0,0,0,0)",
-            black: "rgb(0,0,0)"
+            gray: 'var(--gray-lighter)',
+            gray_text: 'var(--gray-text)',
+            tranperent: 'rgba(0,0,0,0)',
+            yellow: 'var(--orange-primary)',
+            black: 'rgb(0,0,0)'
         },
         screens: {
             '2xl': { max: '1535px' },
