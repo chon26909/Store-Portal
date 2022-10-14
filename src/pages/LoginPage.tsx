@@ -1,31 +1,48 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import Title from '../components/Title';
+import { EMAIL_PETTERN } from '../utils/regEx';
 
 const LoginPage = () => {
-  // const username = useRef(null);
-  // const password = useRef(null);
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+    const onSubmit = () => {
+        console.log('email', email);
+        console.log('password', password);
+        navigate('/dashboard');
+    };
 
-  const onLogin = () => {
-    // console.log("username", username.current);
-    // console.log("password", password.current);
-  };
+    const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+        const email = event.target.value;
 
-  useEffect(() => {
-    console.log("Rerender");
-  }, []);
+        if (EMAIL_PETTERN.test(email)) {
+            console.log('match', email);
+        } else {
+            console.log('not match');
+        }
+    };
+    const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+        const password = event.target.value;
+    };
 
-  return (
-    <div>
-      <input
-        type="text"
-        id="username"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      {/* <input type="password" id="password" ref={password} /> */}
-      <button onClick={onLogin}>login</button>
-    </div>
-  );
+    return (
+        <div className='bg-primary w-[100vw] h-[100vh] flex items-center justify-center'>
+            <form className='w-[450px] bg-white p-10 rounded-md shadow-xl' onSubmit={onSubmit}>
+                <Title className='text-center'>เข้าสู่ระบบ</Title>
+                <Input type='text' label='อีเมล' placeholder='' title='email' errorMessage={emailError} full autoComplete='off' onInput={onChangeEmail} />
+                <Input type='password' label='รหัสผ่าน' placeholder='' title='password' errorMessage={passwordError} full autoComplete='off' onInput={onChangePassword} />
+                <div>ลืมรหัสผ่าน ?</div>
+                <Button className='mt-2 text-center' type='submit' full>
+                    ลงชื่อเข้าใช้
+                </Button>
+            </form>
+        </div>
+    );
 };
 export default LoginPage;
