@@ -1,34 +1,43 @@
-import { useEffect, ChangeEvent, useState } from 'react';
+import { useEffect, ChangeEvent, useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
+import authStore from '../store/authStore';
 import { EMAIL_PETTERN } from '../utils/regEx';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { login } = authStore();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const onSubmit = () => {
+    const onSubmit = (e: FormEvent) => {
+        e.preventDefault();
         console.log('email', email);
         console.log('password', password);
-        navigate('/dashboard');
+        login({ email, password });
+        // navigate('/dashboard');
     };
 
     const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-        const email = event.target.value;
+        const _email = event.target.value;
 
-        if (EMAIL_PETTERN.test(email)) {
-            console.log('match', email);
+        if (EMAIL_PETTERN.test(_email)) {
+            console.log('match', _email);
         } else {
             console.log('not match');
         }
+
+        setEmail(_email);
     };
     const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-        const password = event.target.value;
+        const _password = event.target.value;
+
+        setPassword(_password);
     };
 
     return (
