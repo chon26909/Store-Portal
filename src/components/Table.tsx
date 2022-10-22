@@ -29,6 +29,9 @@ export const TableRow: FC<{ children: JSX.Element[] }> = ({ children }) => {
     return <tr className='[&>td]:px-5 [&>td]:py-3 border-b-[#f2f2f2] border-b-[1px] even:bg-[#f2f2f2]'>{children}</tr>;
 };
 
+export const TableHead: FC<{ children: any; className?: string }> = ({ children, className }) => <th className={className}>{children}</th>;
+export const TableColumn: FC<{ children: any; className?: string }> = ({ children, className }) => <td className={className}>{children}</td>;
+
 const OverlayLoading: FC<{ loading: boolean }> = ({ loading }) => {
     if (loading) {
         return (
