@@ -60,6 +60,8 @@ const FilterUser = () => {
 };
 
 const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
+    const [inputRole, setinputRole] = useState('Admin');
+
     const options = [
         {
             label: 'Admin',
@@ -76,7 +78,8 @@ const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
             <Title>เพิ่มผู้ใช้งาน</Title>
             <div>
                 <Input type='text' label='Email' />
-                <Dropdown options={options} label='สิทธิผู้ใช้งาน' />
+                <Dropdown placeholder='เลือกสิทธิการใขช้งาน' value={inputRole} onChange={setinputRole} options={options} label='สิทธิผู้ใช้งาน' />
+                {inputRole}
             </div>
         </Modal>
     );
