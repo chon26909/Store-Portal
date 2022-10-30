@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Dropdown from '../components/Dropdown';
 import Input from '../components/Input';
@@ -9,6 +9,7 @@ import userStore from '../store/userStore';
 
 const ManageUserPage: FC = () => {
     const { data, loading, fetchData } = userStore();
+    const [isOpenModalCreate, setIsOpenModalCreate] = useState(true);
 
     const columns = ['No.', 'Email', 'Role'];
 
@@ -39,7 +40,7 @@ const ManageUserPage: FC = () => {
                     ))}
                 </TableBody>
             </Table>
-            <ModalCreateUser />
+            <ModalCreateUser isOpen={isOpenModalCreate} />
         </div>
     );
 };
@@ -58,7 +59,7 @@ const FilterUser = () => {
     );
 };
 
-const ModalCreateUser = () => {
+const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
     const options = [
         {
             label: 'Admin',
@@ -71,7 +72,7 @@ const ModalCreateUser = () => {
     ];
 
     return (
-        <Modal isOpen={false}>
+        <Modal isOpen={isOpen}>
             <Title>เพิ่มผู้ใช้งาน</Title>
             <div>
                 <Input type='text' label='Email' />
