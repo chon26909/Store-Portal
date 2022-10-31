@@ -24,7 +24,7 @@ const Modal: FC<IModalProps> = (props) => {
 };
 
 interface IFooterButton {
-    onConfirm: () => void;
+    onConfirm: (data: any) => void;
     onCancal: () => void;
     confirm: string;
     cancel: string;
@@ -34,10 +34,10 @@ export const FooterButton: FC<IFooterButton> = ({ confirm, cancel, onConfirm, on
     return (
         <div className='absolute bottom-0 right-0 p-7 w-full'>
             <div className='flex justify-end'>
-                <Button className='mr-3 bg-tranperent text-black' onClick={onConfirm}>
+                <Button className='mr-3 bg-tranperent text-black' onClick={() => onCancal()}>
                     {cancel}
                 </Button>
-                <Button onClick={onCancal}>{confirm}</Button>
+                <Button onClick={() => onConfirm('data form')}>{confirm}</Button>
             </div>
         </div>
     );
