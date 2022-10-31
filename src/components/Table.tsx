@@ -18,7 +18,7 @@ const Table: FC<ITable> = ({ children, loading }) => {
 export const TableHeader: FC<{ children: JSX.Element[] }> = ({ children }) => {
     return (
         <thead className='text-white text-left bg-primary'>
-            <tr className='[&>th]:px-5 [&>th]:py-4'>{children}</tr>
+            <tr className='[&>th]:px-5 [&>th]:py-2'>{children}</tr>
         </thead>
     );
 };
@@ -26,7 +26,7 @@ export const TableHeader: FC<{ children: JSX.Element[] }> = ({ children }) => {
 export const TableBody: FC<{ children: JSX.Element[] }> = ({ children }) => <tbody>{children}</tbody>;
 
 export const TableRow: FC<{ children: JSX.Element[] }> = ({ children }) => {
-    return <tr className='[&>td]:px-5 [&>td]:py-3 border-b-[#f2f2f2] border-b-[1px] even:bg-[#f2f2f2]'>{children}</tr>;
+    return <tr className='[&>td]:px-5 [&>td]:py-3 border-b-[#f2f2f2] border-b-[1px] even:bg-[#f4f4f4] hover:bg-[#f3f3f3]'>{children}</tr>;
 };
 
 export const TableHead: FC<{ children: any; className?: string }> = ({ children, className }) => <th className={className}>{children}</th>;
