@@ -92,10 +92,10 @@ const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, o
                     <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
                     <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} />
                 </div>
-                <div className='mt-4'>
+                <div className='mt-2'>
                     <div>รูปโปรไฟล์</div>
                     <div>
-                        <ImagePicker onChange={() => {}} />
+                        <ImagePicker className='h-[300px] w-[100%]' onChange={() => {}} />
                     </div>
                 </div>
             </div>
