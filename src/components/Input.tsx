@@ -6,7 +6,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     full?: boolean;
 }
 
-const inputClass = 'text-[18px] mt-1 px-3 py-2 bg-white border shadow-sm border-gray_text rounded placeholder-slate-400 focus:outline-none';
+const inputClass = 'text-[16px] mt-1 px-3 py-2 bg-white border shadow-sm border-gray_text rounded placeholder-slate-400 focus:outline-none';
 
 const InputText = ({ label, full, errorMessage, ...other }: Props) => {
     return (
