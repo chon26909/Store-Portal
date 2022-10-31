@@ -24,20 +24,23 @@ const Modal: FC<IModalProps> = (props) => {
 };
 
 interface IFooterButton {
-    setIsOpenConfirm: () => void;
+    onConfirm: () => void;
+    onCancal: () => void;
+    confirm: string;
+    cancel: string;
 }
 
-// export const FooterButton: FC<> = () => {
-//     return (
-//         <div className='absolute bottom-0 right-0 p-7 w-full'>
-//             <div className='flex justify-end'>
-//                 <Button className='mr-3 bg-tranperent text-black' onClick={() => setIsOpenConfirm(true)}>
-//                     ยกเลิก
-//                 </Button>
-//                 <Button onClick={() => setIsOpenConfirm(true)}>เพิ่มสินค้า</Button>
-//             </div>
-//         </div>
-//     );
-// };
+export const FooterButton: FC<IFooterButton> = ({ confirm, cancel, onConfirm, onCancal }) => {
+    return (
+        <div className='absolute bottom-0 right-0 p-7 w-full'>
+            <div className='flex justify-end'>
+                <Button className='mr-3 bg-tranperent text-black' onClick={onConfirm}>
+                    {cancel}
+                </Button>
+                <Button onClick={onCancal}>{confirm}</Button>
+            </div>
+        </div>
+    );
+};
 
 export default Modal;
