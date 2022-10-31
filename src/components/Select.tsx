@@ -8,11 +8,11 @@ interface IDropdown {
     onChange: (value: string) => void;
 }
 
-const SelectClass = 'w-[250px] text-[18px] mt-1 px-3 py-2 bg-white border shadow-sm border-gray_text rounded placeholder-slate-400 focus:outline-none';
+const SelectClass = 'w-[250px] mt-1 px-3 py-2 bg-white border shadow-sm border-gray_text rounded placeholder-slate-400 focus:outline-none';
 
 const OptionClass = 'px-3 py-2 hover:bg-[#e7eefa]';
 
-const Dropdown: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
+const Select: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const handleClickOpen = (e: any) => {
@@ -20,12 +20,7 @@ const Dropdown: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
         setShowMenu(true);
     };
 
-    const getLable = () => {
-        const result = options.find((item) => {
-            return item.value === value;
-        });
-        return result?.label;
-    };
+    const getLable = () => options.find((item) => item.value === value)?.label;
 
     useEffect(() => {
         const handle = () => setShowMenu(false);
@@ -41,18 +36,20 @@ const Dropdown: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
     return (
         <div className='my-2 w-[250px]'>
             <div>{label}</div>
-            <div className='relative'>
+            <div className='relative select-none'>
                 <div className={SelectClass} onClick={(e) => handleClickOpen(e)}>
-                    <div className=''>{getLable()}</div>
+                    <div>{getLable()}</div>
                     <div className='absolute top-2 right-4'>{showMenu ? <i className='fa-solid fa-chevron-up' /> : <i className='fa-solid fa-chevron-down' />}</div>
                 </div>
                 {showMenu ? (
-                    <div className='bg-white w-full absolute top-[45px] border shadow-lg border-gray_text'>
-                        {options.map((item, index) => (
-                            <div key={index} className={OptionClass} onClick={() => changeOption(item.value)}>
-                                {item.label}
-                            </div>
-                        ))}
+                    <div className='bg-white w-full absolute top-[40px] border shadow-lg border-gray_text'>
+                        {options
+                            .filter(({ value }) => value !== '')
+                            .map((item, index) => (
+                                <div key={index} className={OptionClass} onClick={() => changeOption(item.value)}>
+                                    {item.label}
+                                </div>
+                            ))}
                     </div>
                 ) : null}
             </div>
@@ -60,4 +57,4 @@ const Dropdown: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
     );
 };
 
-export default Dropdown;
+export default Select;

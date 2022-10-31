@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import Button from '../components/Button';
-import Dropdown from '../components/Dropdown';
 import Input from '../components/Input';
 import Modal from '../components/Modal';
 import Table, { TableBody, TableColumn, TableHead, TableHeader, TableRow } from '../components/Table';
 import Title from '../components/Title';
 import userStore from '../store/userStore';
+import Select from '../components/Select';
 
 const ManageUserPage: FC = () => {
     const { data, loading, fetchData } = userStore();
@@ -60,9 +60,13 @@ const FilterUser = () => {
 };
 
 const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
-    const [inputRole, setinputRole] = useState('Admin');
+    const [inputRole, setinputRole] = useState('');
 
     const options = [
+        {
+            label: 'สิทธิผู้ใช้งาน',
+            value: ''
+        },
         {
             label: 'Admin',
             value: 'Admin'
@@ -78,7 +82,7 @@ const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
             <Title>เพิ่มผู้ใช้งาน</Title>
             <div>
                 <Input type='text' label='Email' />
-                <Dropdown placeholder='เลือกสิทธิการใขช้งาน' value={inputRole} onChange={setinputRole} options={options} label='สิทธิผู้ใช้งาน' />
+                <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
                 {inputRole}
             </div>
         </Modal>
