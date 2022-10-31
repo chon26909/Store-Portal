@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import Modal from '../components/Modal';
+import Modal, { FooterButton } from '../components/Modal';
 import Table, { TableBody, TableColumn, TableHead, TableHeader, TableRow } from '../components/Table';
 import Title from '../components/Title';
 import userStore from '../store/userStore';
@@ -83,7 +83,7 @@ const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
             <div>
                 <Input type='text' label='Email' />
                 <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
-                {inputRole}
+                <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={() => {}} cancel='ยกเลิก' onCancal={() => {}} />
             </div>
         </Modal>
     );
