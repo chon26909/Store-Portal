@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from '../styles/modal.module.scss';
+import Button from './Button';
 
 interface IModalProps {
     children: JSX.Element | JSX.Element[];
     isOpen: boolean;
-    // onClose: (state: boolean) => void;
 }
 
 const Modal: FC<IModalProps> = (props) => {
@@ -22,5 +22,22 @@ const Modal: FC<IModalProps> = (props) => {
         </AnimatePresence>
     );
 };
+
+interface IFooterButton {
+    setIsOpenConfirm: () => void;
+}
+
+// export const FooterButton: FC<> = () => {
+//     return (
+//         <div className='absolute bottom-0 right-0 p-7 w-full'>
+//             <div className='flex justify-end'>
+//                 <Button className='mr-3 bg-tranperent text-black' onClick={() => setIsOpenConfirm(true)}>
+//                     ยกเลิก
+//                 </Button>
+//                 <Button onClick={() => setIsOpenConfirm(true)}>เพิ่มสินค้า</Button>
+//             </div>
+//         </div>
+//     );
+// };
 
 export default Modal;
