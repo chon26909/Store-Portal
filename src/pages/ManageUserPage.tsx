@@ -6,10 +6,11 @@ import Table, { TableBody, TableColumn, TableHead, TableHeader, TableRow } from 
 import Title from '../components/Title';
 import userStore from '../store/userStore';
 import Select from '../components/Select';
+import ImagePicker from '../components/ImagePicker';
 
 const ManageUserPage: FC = () => {
     const { data, loading, fetchData } = userStore();
-    const [isOpenModalCreate, setIsOpenModalCreate] = useState(true);
+    const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
 
     const columns = ['No.', 'Email', 'Role'];
 
@@ -21,7 +22,7 @@ const ManageUserPage: FC = () => {
         <div>
             <div className='flex justify-between mb-2'>
                 <Title>ข้อมูลผู้ใช้งานระบบ และสิทธิการเข้าถึง</Title>
-                <Button>เพิ่มผู้ใช้งาน</Button>
+                <Button onClick={() => setIsOpenModalCreate(true)}>เพิ่มผู้ใช้งาน</Button>
             </div>
             <FilterUser />
             <Table loading={loading}>
@@ -40,7 +41,7 @@ const ManageUserPage: FC = () => {
                     ))}
                 </TableBody>
             </Table>
-            <ModalCreateUser isOpen={isOpenModalCreate} />
+            <ModalCreateUser isOpen={isOpenModalCreate} onClose={() => setIsOpenModalCreate(false)} />
         </div>
     );
 };
@@ -59,7 +60,7 @@ const FilterUser = () => {
     );
 };
 
-const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
+const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, onClose }) => {
     const [inputRole, setinputRole] = useState('');
 
     const options = [
@@ -77,13 +78,26 @@ const ModalCreateUser: FC<{ isOpen: boolean }> = ({ isOpen }) => {
         }
     ];
 
+    const onSubmit = (data: any) => {
+        console.log('data from submit ', data);
+        onClose();
+    };
+
     return (
         <Modal isOpen={isOpen}>
             <Title>เพิ่มผู้ใช้งาน</Title>
-            <div>
-                <Input type='text' label='Email' />
-                <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
-                <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={() => {}} cancel='ยกเลิก' onCancal={() => {}} />
+            <div className='grid grid-cols-2'>
+                <div>
+                    <Input type='text' label='Email' />
+                    <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
+                    <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} />
+                </div>
+                <div className='mt-4'>
+                    <div>รูปโปรไฟล์</div>
+                    <div>
+                        <ImagePicker onChange={() => {}} />
+                    </div>
+                </div>
             </div>
         </Modal>
     );
