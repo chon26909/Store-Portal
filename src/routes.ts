@@ -1,4 +1,4 @@
-import { FC, lazy, LazyExoticComponent } from 'react';
+import { FC } from 'react';
 import CustomersPage from './pages/CustomersPage';
 import DashboardPage from './pages/DashboardPage';
 import LoginPage from './pages/LoginPage';
