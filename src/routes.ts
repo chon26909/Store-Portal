@@ -5,9 +5,10 @@ import LoginPage from './pages/LoginPage';
 import ManageUserPage from './pages/ManageUserPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProductPage from './pages/ProductPage';
+import ROLE_USER from './utils/roleUser';
 
 interface IRoutesType {
-    [key: string]: { path: string; element: FC }[];
+    [key: string]: { path: string; role?: ROLE_USER[]; element: FC }[];
 }
 
 const routes: IRoutesType = {
@@ -20,7 +21,8 @@ const routes: IRoutesType = {
     private: [
         {
             path: '/dashboard',
-            element: DashboardPage
+            element: DashboardPage,
+            role: [ROLE_USER.ADMIN, ROLE_USER.OPERATOR]
         },
         {
             path: '/products',
