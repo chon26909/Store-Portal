@@ -1,8 +1,9 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-const API = {
+const ENDPOINT = {
     //auth
     LOGIN: `${API_URL}/auth/login`,
+    VERIFY_OTP: `${API_URL}/auth/verify`,
 
     //product
 
@@ -12,4 +13,4 @@ const API = {
     CREATE_USER: `${API_URL}/user/create`
 };
 
-export default API;
+export default ENDPOINT;
