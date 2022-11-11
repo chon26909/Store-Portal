@@ -10,7 +10,8 @@ const ENDPOINT = {
     //customer
 
     //user
-    CREATE_USER: `${API_URL}/user/create`
+    GET_USERS: `${API_URL}/users`,
+    ADD_USER: `${API_URL}/users/create`
 };
 
 export default ENDPOINT;
