@@ -4,18 +4,21 @@ import Input from '../components/Input';
 import Modal, { FooterButton } from '../components/Modal';
 import Table, { TableBody, TableColumn, TableHead, TableHeader, TableRow } from '../components/Table';
 import Title from '../components/Title';
-import userStore from '../store/userStore';
 import Select from '../components/Select';
 import ImagePicker from '../components/ImagePicker';
+import { addUser, getUsers } from '../store/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { USER_STATUS } from '../types/user';
 
 const ManageUserPage: FC = () => {
-    const { data, loading, fetchData } = userStore();
+    const dispatch = useAppDispatch();
+    const { data, loading } = useAppSelector((s) => s.users);
     const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
 
-    const columns = ['No.', 'Email', 'Role'];
+    const columns = ['No.', 'ชื่อ นามสกุล', 'อีเมล', 'สิทธิการเข้าถึง', 'สถานะ'];
 
     useEffect(() => {
-        fetchData();
+        dispatch(getUsers());
     }, []);
 
     return (
@@ -34,9 +37,13 @@ const ManageUserPage: FC = () => {
                 <TableBody>
                     {data.map((row, i) => (
                         <TableRow key={i}>
-                            <TableColumn>{i + 1}</TableColumn>
+                            <TableColumn className='w-[60px]'>{i + 1}</TableColumn>
+                            <TableColumn>{row.firstname + ' ' + row.lastname}</TableColumn>
                             <TableColumn>{row.email}</TableColumn>
                             <TableColumn>{row.role}</TableColumn>
+                            <TableColumn className='w-[170px]'>
+                                <UserStatus status={row.user_status} />
+                            </TableColumn>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -44,6 +51,18 @@ const ManageUserPage: FC = () => {
             <ModalCreateUser isOpen={isOpenModalCreate} onClose={() => setIsOpenModalCreate(false)} />
         </div>
     );
+};
+
+const UserStatus: FC<{ status: string }> = ({ status }) => {
+    const style = 'py-2 px-4 rounded-[20px] inline-block text-white text-[14px]';
+    if (status === USER_STATUS.ENABLED) {
+        return <div className={[style, 'bg-green'].join(' ')}>เปิดการใช้งาน</div>;
+    } else if (status === USER_STATUS.DISABLED) {
+        return <div className={[style, 'bg-red'].join(' ')}>ปิดการใช้งาน</div>;
+    } else if (status === USER_STATUS.SUSPENDED) {
+        return <div className={[style, 'bg-yellow'].join(' ')}>ระงับการใช้งาน</div>;
+    }
+    return <div></div>;
 };
 
 const FilterUser = () => {
@@ -61,7 +80,12 @@ const FilterUser = () => {
 };
 
 const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, onClose }) => {
-    const [inputRole, setinputRole] = useState('');
+    const dispath = useAppDispatch();
+    const { loading } = useAppSelector((s) => s.users);
+    const [inputRole, setInputRole] = useState('');
+    const [inputFirstname, setInputFirstname] = useState('');
+    const [inputLastname, setInputLastname] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
 
     const options = [
         {
@@ -69,36 +93,44 @@ const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, o
             value: ''
         },
         {
-            label: 'Admin',
+            label: 'ผู้ดูแลระบบ',
             value: 'Admin'
         },
         {
-            label: 'Sale',
+            label: 'เจ้าหน้าที่ฝ่ายขาย',
             value: 'Sale'
         }
     ];
 
-    const onSubmit = (data: any) => {
-        console.log('data from submit ', data);
+    const onSubmit = async () => {
+        const data = {
+            firstname: inputFirstname,
+            lastname: inputLastname,
+            email: inputEmail,
+            role: inputRole
+        };
+        await dispath(addUser(data));
         onClose();
     };
 
     return (
-        <Modal isOpen={isOpen}>
+        <Modal isOpen={isOpen} loading={loading}>
             <Title>เพิ่มผู้ใช้งาน</Title>
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-2 gap-10'>
                 <div>
-                    <Input type='text' label='Email' />
-                    <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setinputRole} options={options} />
-                    <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} />
+                    <Input type='text' label='Firstname' onChange={(e) => setInputFirstname(e.target.value)} />
+                    <Input type='text' label='Lastname' onChange={(e) => setInputLastname(e.target.value)} />
+                    <Input type='text' label='Email' onChange={(e) => setInputEmail(e.target.value)} />
+                    <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setInputRole} options={options} />
                 </div>
-                <div className='mt-2'>
+                <div className=''>
                     <div>รูปโปรไฟล์</div>
                     <div>
                         <ImagePicker className='h-[300px] w-[100%]' onChange={() => {}} />
                     </div>
                 </div>
             </div>
+            <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} />
         </Modal>
     );
 };

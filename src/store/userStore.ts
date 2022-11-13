@@ -1,5 +1,5 @@
 import zustand from 'zustand';
-import { IUser } from '../types/uset';
+import { IUser } from '../types/user';
 
 interface IUserStore {
     data: IUser[];

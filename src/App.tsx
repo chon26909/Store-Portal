@@ -17,7 +17,6 @@ function App() {
                 <Route element={<MainLayout />}>
                     {routes.private
                         .filter((path) => {
-                            console.log(path.role, '===', auth.role);
                             return true;
                         })
                         .map((route) => {
