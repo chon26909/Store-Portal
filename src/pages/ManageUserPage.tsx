@@ -8,14 +8,30 @@ import Select from '../components/Select';
 import ImagePicker from '../components/ImagePicker';
 import { addUser, getUsers } from '../store/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../store';
-import { USER_STATUS } from '../types/user';
+import { IUser, USER_STATUS } from '../types/user';
 
 const ManageUserPage: FC = () => {
     const dispatch = useAppDispatch();
     const { data, loading } = useAppSelector((s) => s.users);
-    const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [dataEdit, setDataEdit] = useState<IUser | undefined>();
 
-    const columns = ['No.', 'ชื่อ นามสกุล', 'อีเมล', 'สิทธิการเข้าถึง', 'สถานะ'];
+    const columns = ['No.', 'ชื่อ นามสกุล', 'อีเมล', 'สิทธิการเข้าถึง', 'สถานะ', 'แก้ไข'];
+
+    const role: any = {
+        admin: 'ผู้ดูแลระบบ',
+        sale: 'เจ้าหน้าที่ฝ่ายขาย'
+    };
+
+    const onEditRow = (data: IUser) => {
+        setDataEdit(data);
+        setIsOpenModal(true);
+    };
+
+    const onAddUser = () => {
+        setDataEdit(undefined);
+        setIsOpenModal(true);
+    };
 
     useEffect(() => {
         dispatch(getUsers());
@@ -25,7 +41,7 @@ const ManageUserPage: FC = () => {
         <div>
             <div className='flex justify-between mb-2'>
                 <Title>ข้อมูลผู้ใช้งานระบบ และสิทธิการเข้าถึง</Title>
-                <Button onClick={() => setIsOpenModalCreate(true)}>เพิ่มผู้ใช้งาน</Button>
+                <Button onClick={() => onAddUser()}>เพิ่มผู้ใช้งาน</Button>
             </div>
             <FilterUser />
             <Table loading={loading}>
@@ -40,36 +56,72 @@ const ManageUserPage: FC = () => {
                             <TableColumn className='w-[60px]'>{i + 1}</TableColumn>
                             <TableColumn>{row.firstname + ' ' + row.lastname}</TableColumn>
                             <TableColumn>{row.email}</TableColumn>
-                            <TableColumn>{row.role}</TableColumn>
-                            <TableColumn className='w-[170px]'>
+                            <TableColumn className='w-[200px]'>{role[row.role]}</TableColumn>
+                            <TableColumn className='w-[200px]'>
                                 <UserStatus status={row.user_status} />
+                            </TableColumn>
+                            <TableColumn className='w-[70px] text-center'>
+                                <i className='fas fa-pen-to-square text-primary text-[18px] p-2 cursor-pointer' onClick={() => onEditRow(row)} />
                             </TableColumn>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
-            <ModalCreateUser isOpen={isOpenModalCreate} onClose={() => setIsOpenModalCreate(false)} />
+            <ModalUser isOpen={isOpenModal} dataForEdit={dataEdit} onClose={() => setIsOpenModal(false)} />
         </div>
     );
 };
 
 const UserStatus: FC<{ status: string }> = ({ status }) => {
-    const style = 'py-2 px-4 rounded-[20px] inline-block text-white text-[14px]';
+    const dot = 'w-[15px] h-[15px] rounded-full mr-2';
+    const style = 'py-2 inline-block text-[16px] flex items-center';
     if (status === USER_STATUS.ENABLED) {
-        return <div className={[style, 'bg-green'].join(' ')}>เปิดการใช้งาน</div>;
+        return (
+            <div className={[style, 'text-green'].join(' ')}>
+                <div className={[dot, 'bg-green '].join(' ')}>{'  '}</div>
+                <div>เปิดการใช้งาน</div>
+            </div>
+        );
     } else if (status === USER_STATUS.DISABLED) {
-        return <div className={[style, 'bg-red'].join(' ')}>ปิดการใช้งาน</div>;
+        return (
+            <div className={[style, 'text-red'].join(' ')}>
+                <div className={[dot, 'bg-red '].join(' ')}>{'  '}</div>
+                <div> ปิดการใช้งาน</div>
+            </div>
+        );
     } else if (status === USER_STATUS.SUSPENDED) {
-        return <div className={[style, 'bg-yellow'].join(' ')}>ระงับการใช้งาน</div>;
+        return (
+            <div className={[style, 'text-yellow'].join(' ')}>
+                <div className={[dot, 'bg-yellow '].join(' ')}>{'  '}</div>
+                <div>ระงับการใช้งาน</div>
+            </div>
+        );
     }
     return <div></div>;
 };
 
 const FilterUser = () => {
+    const [inputRole, setInputRole] = useState('');
+    const options = [
+        {
+            label: 'สิทธิผู้ใช้งาน',
+            value: ''
+        },
+        {
+            label: 'ผู้ดูแลระบบ',
+            value: 'admin'
+        },
+        {
+            label: 'เจ้าหน้าที่ฝ่ายขาย',
+            value: 'sale'
+        }
+    ];
     return (
         <div>
             <div className='my-3'>
-                <Input type='text' label='Email' placeholder='' />
+                <Input type='text' label='ชื่อจริง' placeholder='' />
+                <Input type='text' label='อีเมล' placeholder='' />
+                <Select label='สิทธิผู้ใช้งาน' value='' onChange={setInputRole} options={options} />
             </div>
             <div className='my-3'>
                 <Button>ค้นหา</Button>
@@ -79,13 +131,14 @@ const FilterUser = () => {
     );
 };
 
-const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, onClose }) => {
+const ModalUser: FC<{ isOpen: boolean; dataForEdit?: IUser; onClose: Function }> = ({ isOpen, dataForEdit, onClose }) => {
     const dispath = useAppDispatch();
     const { loading } = useAppSelector((s) => s.users);
-    const [inputRole, setInputRole] = useState('');
+
     const [inputFirstname, setInputFirstname] = useState('');
     const [inputLastname, setInputLastname] = useState('');
     const [inputEmail, setInputEmail] = useState('');
+    const [inputRole, setInputRole] = useState('');
 
     const options = [
         {
@@ -94,11 +147,11 @@ const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, o
         },
         {
             label: 'ผู้ดูแลระบบ',
-            value: 'Admin'
+            value: 'admin'
         },
         {
             label: 'เจ้าหน้าที่ฝ่ายขาย',
-            value: 'Sale'
+            value: 'sale'
         }
     ];
 
@@ -113,14 +166,29 @@ const ModalCreateUser: FC<{ isOpen: boolean; onClose: Function }> = ({ isOpen, o
         onClose();
     };
 
+    useEffect(() => {
+        if (dataForEdit) {
+            const { firstname, lastname, email, role } = dataForEdit;
+            setInputFirstname(firstname);
+            setInputLastname(lastname);
+            setInputEmail(email);
+            setInputRole(role);
+        } else {
+            setInputFirstname('');
+            setInputLastname('');
+            setInputEmail('');
+            setInputRole('');
+        }
+    }, [dataForEdit]);
+
     return (
         <Modal isOpen={isOpen} loading={loading}>
-            <Title>เพิ่มผู้ใช้งาน</Title>
+            <Title>{dataForEdit ? 'แก้ไขข้อมูล' : 'เพิ่มผู้ใช้งาน'}</Title>
             <div className='grid grid-cols-2 gap-10'>
                 <div>
-                    <Input type='text' label='Firstname' onChange={(e) => setInputFirstname(e.target.value)} />
-                    <Input type='text' label='Lastname' onChange={(e) => setInputLastname(e.target.value)} />
-                    <Input type='text' label='Email' onChange={(e) => setInputEmail(e.target.value)} />
+                    <Input type='text' label='Firstname' value={inputFirstname} onChange={(e) => setInputFirstname(e.target.value)} />
+                    <Input type='text' label='Lastname' value={inputLastname} onChange={(e) => setInputLastname(e.target.value)} />
+                    <Input type='text' label='Email' value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} />
                     <Select label='สิทธิผู้ใช้งาน' value={inputRole} onChange={setInputRole} options={options} />
                 </div>
                 <div className=''>

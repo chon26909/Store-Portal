@@ -42,7 +42,7 @@ const Select: FC<IDropdown> = ({ options, label, value, full, onChange }) => {
                     <div className='absolute top-2 right-4'>{showMenu ? <i className='fa-solid fa-chevron-up' /> : <i className='fa-solid fa-chevron-down' />}</div>
                 </div>
                 {showMenu ? (
-                    <div className='bg-white w-full absolute top-[40px] border shadow-lg border-gray_text'>
+                    <div className='bg-white w-full absolute top-[40px] border shadow-lg border-gray_text z-50'>
                         {options
                             .filter(({ value }) => value !== '')
                             .map((item, index) => (

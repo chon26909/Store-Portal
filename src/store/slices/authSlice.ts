@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import cookie from 'js-cookie';
 import ENDPOINT from '../api';
 
 interface IRequestLogin {
@@ -7,7 +8,10 @@ interface IRequestLogin {
     password: string;
 }
 
-interface IResponseLogin extends IOTP {}
+// interface IResponseLogin extends IOTP {}
+interface IResponseLogin {
+    token: string;
+}
 
 interface IResponseVerifyOTP {
     message: string;
@@ -40,6 +44,8 @@ const initialState: IAuthState = {
 export const login = createAsyncThunk<IResponseLogin, IRequestLogin>('auth/login', async (body, { rejectWithValue }) => {
     try {
         const { data } = await axios.post<IResponseLogin>(ENDPOINT.LOGIN, body);
+        console.log('data', data);
+        cookie.set('token', data.token);
         return data;
     } catch (error) {
         return rejectWithValue(error);
@@ -65,7 +71,7 @@ const authSlice = createSlice({
         });
         builder.addCase(login.fulfilled, (state, action) => {
             state.loading = false;
-            state.otp = action.payload;
+            // state.otp = action.payload;
         });
         builder.addCase(login.rejected, (state, action) => {
             state.loading = false;

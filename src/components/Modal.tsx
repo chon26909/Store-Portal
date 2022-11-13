@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Button from './Button';
 import styled from 'styled-components';
@@ -13,11 +13,18 @@ interface IModalProps {
 
 const Modal: FC<IModalProps> = (props) => {
     const { children, isOpen, className, loading } = props;
+
+    useEffect(() => {
+        if (isOpen) {
+            document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+        }
+    }, []);
+
     return (
         <AnimatePresence>
             {isOpen ? (
                 <ModalStyle>
-                    <motion.div className='ModalDackdrop' initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <motion.div className='ModalBackdrop' initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                         <motion.div className={[className, 'ModalContentWrapper'].join(' ')} initial={{ scale: 0 }} animate={{ scale: 1 }}>
                             <motion.div className='body'>
                                 <div className='in-body'>{children}</div>
@@ -43,7 +50,7 @@ const OvarlayLoading: FC<{ overlay: boolean | undefined }> = ({ overlay }) => {
 };
 
 const ModalStyle = styled.div`
-    .ModalDackdrop {
+    .ModalBackdrop {
         position: fixed;
         height: 100vh;
         width: 100vw;

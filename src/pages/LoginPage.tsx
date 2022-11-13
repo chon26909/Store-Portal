@@ -3,24 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
+import { useAppDispatch } from '../store';
 import authStore from '../store/authStore';
+import { login } from '../store/slices/authSlice';
 import { EMAIL_PETTERN } from '../utils/regEx';
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const { login } = authStore();
+    const dispatch = useAppDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const onSubmit = (e: FormEvent) => {
+    const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('email', email);
-        console.log('password', password);
-        login({ email, password });
-        // navigate('/dashboard');
+
+        try {
+            await dispatch(login({ email, password })).then((res) => {
+                console.log('login res', res);
+                navigate('/dashboard');
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {

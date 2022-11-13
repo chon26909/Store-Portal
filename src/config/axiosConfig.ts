@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import cookie from 'js-cookie';
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-    const token = '';
+    const token = cookie.get('token');
     config.headers!.Authorization = 'Bearer ' + token;
     return config;
 };
