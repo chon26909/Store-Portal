@@ -8,13 +8,14 @@ import Select from '../components/Select';
 import ImagePicker from '../components/ImagePicker';
 import { addUser, getUsers } from '../store/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../store';
+import { USER_STATUS } from '../types/user';
 
 const ManageUserPage: FC = () => {
     const dispatch = useAppDispatch();
     const { data, loading } = useAppSelector((s) => s.users);
     const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
 
-    const columns = ['No.', 'Email', 'Role'];
+    const columns = ['No.', 'ชื่อ นามสกุล', 'อีเมล', 'สิทธิการเข้าถึง', 'สถานะ'];
 
     useEffect(() => {
         dispatch(getUsers());
@@ -36,9 +37,13 @@ const ManageUserPage: FC = () => {
                 <TableBody>
                     {data.map((row, i) => (
                         <TableRow key={i}>
-                            <TableColumn>{i + 1}</TableColumn>
+                            <TableColumn className='w-[60px]'>{i + 1}</TableColumn>
+                            <TableColumn>{row.firstname + ' ' + row.lastname}</TableColumn>
                             <TableColumn>{row.email}</TableColumn>
                             <TableColumn>{row.role}</TableColumn>
+                            <TableColumn className='w-[170px]'>
+                                <UserStatus status={row.user_status} />
+                            </TableColumn>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -46,6 +51,18 @@ const ManageUserPage: FC = () => {
             <ModalCreateUser isOpen={isOpenModalCreate} onClose={() => setIsOpenModalCreate(false)} />
         </div>
     );
+};
+
+const UserStatus: FC<{ status: string }> = ({ status }) => {
+    const style = 'py-2 px-4 rounded-[20px] inline-block text-white text-[14px]';
+    if (status === USER_STATUS.ENABLED) {
+        return <div className={[style, 'bg-green'].join(' ')}>เปิดการใช้งาน</div>;
+    } else if (status === USER_STATUS.DISABLED) {
+        return <div className={[style, 'bg-red'].join(' ')}>ปิดการใช้งาน</div>;
+    } else if (status === USER_STATUS.SUSPENDED) {
+        return <div className={[style, 'bg-yellow'].join(' ')}>ระงับการใช้งาน</div>;
+    }
+    return <div></div>;
 };
 
 const FilterUser = () => {
