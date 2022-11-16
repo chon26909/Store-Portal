@@ -6,7 +6,8 @@ const ENDPOINT = {
     VERIFY_OTP: `${API_URL}/auth/verify`,
 
     //product
-
+    GET_PRODUCTS: `${API_URL}/product`,
+    ADD_PRODUCT: `${API_URL}/product/create`,
     //customer
 
     //user

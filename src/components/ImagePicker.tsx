@@ -15,11 +15,11 @@ const ImagePicker: FC<IImagePicker> = ({ className, onChange }) => {
     };
 
     const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-        const image = e.target.files;
+        const files = e.target.files;
 
-        if (image) {
-            onChange(image[0]);
-            setImage(URL.createObjectURL(image[0]));
+        if (files) {
+            onChange(files[0]);
+            setImage(URL.createObjectURL(files[0]));
         }
     };
 

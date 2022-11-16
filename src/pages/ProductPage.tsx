@@ -6,19 +6,18 @@ import Dialog from '../components/Dialog';
 import ModalProductAdd from '../components/ModalProductAdd';
 import Title from '../components/Title';
 import productStore from '../store/productStore';
+import { useAppDispatch, useAppSelector } from '../store';
+import { getProducts } from '../store/slices/productsSlice';
 
 const ProductPage = () => {
+    const dispatch = useAppDispatch();
+    const { data, loading } = useAppSelector((s) => s.products);
+
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
 
-    const { data, fetchProducts } = productStore();
-
     useEffect(() => {
-        fetchProducts();
+        dispatch(getProducts());
     }, []);
-
-    const onSubmitAddProduct = () => {
-        console.log('add product');
-    };
 
     return (
         <div>
@@ -50,9 +49,9 @@ interface ICardProductProps extends IProduct {
 const CardProduct: FC<ICardProductProps> = (props) => {
     return (
         <div className='bg-white p-4 border-[#e8e8e8] rounded-lg shadow-xl cursor-pointer hover:scale-105'>
-            <Photo src={props.photo} />
-            <div className='font-bold text-lg'>{props.title}</div>
-            <div className='text-gray_text'>{props.desc.length ? props.desc.substring(0, 50) + '...' : props.desc}</div>
+            <Photo src={props.picture} />
+            <div className='font-bold text-lg'>{props.name}</div>
+            <div className='text-gray_text'>{props.description.length ? props.description.substring(0, 50) + '...' : props.description}</div>
             <div className='text-md'>ราคา {props.price} บาท</div>
             <div className='text-md'>คงเหลือ {props.qty} ชิ้น</div>
         </div>
