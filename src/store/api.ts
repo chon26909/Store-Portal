@@ -3,6 +3,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const ENDPOINT = {
     //auth
     LOGIN: `${API_URL}/auth/login`,
+    LOGIN_WITH_GOOGLE: `${API_URL}/auth/login/google`,
     VERIFY_OTP: `${API_URL}/auth/verify`,
 
     //product

@@ -1,7 +1,8 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, HTMLAttributes, useState } from 'react';
 import { useAppDispatch } from '../store';
 import { addProduct, getProducts } from '../store/slices/productsSlice';
 import { fileToBase64 } from '../utils';
+import { NUMBER_PETTERN, TEXT_PETTERN } from '../utils/regEx';
 import Button from './Button';
 import Dialog from './Dialog';
 import ImagePicker from './ImagePicker';
@@ -46,15 +47,39 @@ const ModalProductAdd: FC<IModalProps> = (props) => {
         }
     };
 
+    const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value;
+        value = [...value].map((c) => (TEXT_PETTERN.test(c) ? c : c.replace(c, ''))).join('');
+        setInputName(value);
+    };
+
+    const onChangeDescription = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value;
+        value = [...value].map((c) => (TEXT_PETTERN.test(c) ? c : c.replace(c, ''))).join('');
+        setInputDescription(value);
+    };
+
+    const onChangePrice = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value;
+        value = [...value].map((c) => (NUMBER_PETTERN.test(c) ? c : c.replace(c, ''))).join('');
+        setInputPrice(value);
+    };
+
+    const onChangeQty = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value;
+        value = [...value].map((c) => (NUMBER_PETTERN.test(c) ? c : c.replace(c, ''))).join('');
+        setInputQty(value);
+    };
+
     return (
         <Modal isOpen={isOpen} loading={loading}>
             <Title>เพิ่มสินค้า</Title>
             <div className='grid grid-cols-2 gap-10'>
                 <div>
-                    <Input type='text' label='ชื่อสินค้า' placeholder='' value={inputName} onChange={(e) => setInputName(e.target.value)} />
-                    <Input type='text' label='รายละเอียดสินค้า' placeholder='' value={inputDescription} onChange={(e) => setInputDescription(e.target.value)} />
-                    <Input type='text' label='ราคา' placeholder='' value={inputPrice} pattern='[0-9]' onChange={(e) => setInputPrice(e.target.value)} />
-                    <Input type='text' label='จำนวน' placeholder='' value={inputQty} pattern='[0-9]' onChange={(e) => setInputQty(e.target.value)} />
+                    <Input type='text' label='ชื่อสินค้า' placeholder='' value={inputName} onChange={onChangeName} />
+                    <Input type='text' label='รายละเอียดสินค้า' placeholder='' value={inputDescription} onChange={onChangeDescription} />
+                    <Input type='text' label='ราคา' placeholder='' value={inputPrice} onChange={onChangePrice} />
+                    <Input type='text' label='จำนวน' placeholder='' value={inputQty} onChange={onChangeQty} />
                 </div>
                 <div>
                     <div>รูปสินค้า</div>

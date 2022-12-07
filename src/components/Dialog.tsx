@@ -26,11 +26,11 @@ const Dialog: FC<IDialogProps> = (props) => {
             {isOpen ? (
                 <motion.div className={[styles.ModalDackdrop].join(' ')} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     <motion.div className={styles.ModalDialog} initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                        <div className='text-center text-[55px]'>
+                        <div className='text-center text-[45px]'>
                             <IconDialog icon={icon} />
                         </div>
 
-                        <div className='text-center text-2xl font-bold'>{title}</div>
+                        <div className='text-center text-[22px] font-bold'>{title}</div>
                         <div className='text-center'>{'' + message}</div>
                         <div className='text-center mt-3'>
                             <Button className='mx-2 px-[4rem] bg-tranperent border-gray border-[1px] box-border border=[1px] text-black' onClick={onCancel}>

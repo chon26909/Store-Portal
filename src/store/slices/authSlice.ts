@@ -10,6 +10,7 @@ interface IRequestLogin {
 
 // interface IResponseLogin extends IOTP {}
 interface IResponseLogin {
+    message: string;
     token: string;
 }
 
@@ -44,7 +45,16 @@ const initialState: IAuthState = {
 export const login = createAsyncThunk<IResponseLogin, IRequestLogin>('auth/login', async (body, { rejectWithValue }) => {
     try {
         const { data } = await axios.post<IResponseLogin>(ENDPOINT.LOGIN, body);
-        console.log('data', data);
+        cookie.set('token', data.token);
+        return data;
+    } catch (error) {
+        return rejectWithValue(error);
+    }
+});
+
+export const loginWithGoogle = createAsyncThunk<IResponseLogin, { tokenId: string }>('auth/loginWithGoogle', async (body, { rejectWithValue }) => {
+    try {
+        const { data } = await axios.post<IResponseLogin>(ENDPOINT.LOGIN_WITH_GOOGLE, body);
         cookie.set('token', data.token);
         return data;
     } catch (error) {
