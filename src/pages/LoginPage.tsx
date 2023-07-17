@@ -4,12 +4,9 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import { useAppDispatch } from '../store';
-import { login, loginWithGoogle } from '../store/slices/authSlice';
+import { login } from '../store/slices/authSlice';
 import { EMAIL_PETTERN } from '../utils/regEx';
 import cookie from 'js-cookie';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import axios from 'axios';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -85,52 +82,52 @@ const LoginPage = () => {
                     ลงชื่อเข้าใช้
                 </Button>
                 <div className='text-center my-3'>หรือ</div>
-                <GoogleAuth />
+                {/* <GoogleAuth /> */}
             </form>
         </div>
     );
 };
 
-const GoogleAuth = () => {
-    const dispatch = useAppDispatch();
+// const GoogleAuth = () => {
+//     const dispatch = useAppDispatch();
 
-    const clientID = import.meta.env.VITE_OAUTH_CLIENT_ID;
+//     const clientID = import.meta.env.VITE_OAUTH_CLIENT_ID;
 
-    useEffect(() => {
-        const initClient = () => {
-            gapi.client.init({
-                clientId: clientID,
-                scope: ''
-            });
-        };
+//     useEffect(() => {
+//         const initClient = () => {
+//             gapi.client.init({
+//                 clientId: clientID,
+//                 scope: ''
+//             });
+//         };
 
-        gapi.load('client:auth2', initClient);
-    }, []);
+//         gapi.load('client:auth2', initClient);
+//     }, []);
 
-    const onSuccess = async (user_data: any) => {
-        console.log('user_data', user_data);
+//     const onSuccess = async (user_data: any) => {
+//         console.log('user_data', user_data);
 
-        const tokenId = user_data.tokenId;
-        await dispatch(loginWithGoogle({ tokenId }));
-    };
+//         const tokenId = user_data.tokenId;
+//         await dispatch(loginWithGoogle({ tokenId }));
+//     };
 
-    const onFailure = (error: any) => {
-        console.log('onFailure', error);
-    };
+//     const onFailure = (error: any) => {
+//         console.log('onFailure', error);
+//     };
 
-    return (
-        <GoogleLogin
-            clientId={clientID}
-            buttonText='Sign in with Google'
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            render={(renderProps) => (
-                <button className='border bg-gray w-full p-2 rounded' onClick={renderProps.onClick}>
-                    Sign with Google
-                </button>
-            )}
-        />
-    );
-};
+//     return (
+//         <GoogleLogin
+//             clientId={clientID}
+//             buttonText='Sign in with Google'
+//             onSuccess={onSuccess}
+//             onFailure={onFailure}
+//             render={(renderProps) => (
+//                 <button className='border bg-gray w-full p-2 rounded' onClick={renderProps.onClick}>
+//                     Sign with Google
+//                 </button>
+//             )}
+//         />
+//     );
+// };
 
 export default LoginPage;
