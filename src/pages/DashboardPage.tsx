@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Switch from '../components/Switch';
 import WidgetSummary from '../components/WidgetSummary';
+import InputFile from '../components/InputFile';
 
 const DashboardPage = () => {
     const [toggle, settoggle] = useState(false);
+    const [file, setFile] = useState<File>();
     return (
         <div>
             <WidgetSummary title='ผู้ใช้งานทั้งหมด' count={1200} className='bg-primary' />
@@ -16,6 +18,8 @@ const DashboardPage = () => {
                     settoggle(!toggle);
                 }}
             />
+
+            <InputFile onChange={(value) => setFile(value)} acceptFile={['CSV']} />
         </div>
     );
 };
