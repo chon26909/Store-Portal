@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import Modal, { FooterButton } from '../components/Modal';
+import Modal from '../components/Modal';
 import Table, { TableBody, TableColumn, TableHead, TableHeader, TableRow } from '../components/Table';
 import Title from '../components/Title';
 import Select from '../components/Select';
@@ -198,7 +198,7 @@ const ModalUser: FC<{ isOpen: boolean; dataForEdit?: IUser; onClose: Function }>
                     </div>
                 </div>
             </div>
-            <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} />
+            {/* <FooterButton confirm='เพิ่มผู้ใช้งาน' onConfirm={onSubmit} cancel='ยกเลิก' onCancal={() => onClose()} /> */}
         </Modal>
     );
 };
