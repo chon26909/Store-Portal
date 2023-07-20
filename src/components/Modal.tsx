@@ -33,20 +33,19 @@ const Modal: FC<IModalProps> = ({ children, isOpen, modalClassName, bodyClassNam
         >
             <div
                 className={`${modalClassName}
-                            mx-auto 
                             h-[600px] w-[1000px] 
                             lg:h-[600px] lg:w-4/6
                             md:h-full md:w-full 
                           
-                            relative rounded-md md:rounded-none
-                            transition duration-200
-                            ${show ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
-                            
                             bg-white
                             overflow-hidden
+                            relative rounded-md md:rounded-none
+                            
+                            transition duration-200
+                            ${show ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
                             `}
             >
-                <div className={[bodyClassName, 'translate h-full '].join(' ')}>{children}</div>
+                <div className={[bodyClassName, 'h-full '].join(' ')}>{children}</div>
             </div>
         </div>
     );
