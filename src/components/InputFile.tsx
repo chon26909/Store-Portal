@@ -46,7 +46,6 @@ const InputFile: FC<IInputFileProps> = (props) => {
                 </div>
                 <div className='ml-3'>{fileName ? fileName : 'Please Select File'}</div>
             </div>
-            {props.acceptFile.map((item) => acceptFileKeyPair[item]).join(',')}
             <input
                 type='file'
                 accept={props.acceptFile.map((item) => acceptFileKeyPair[item]).join(',')}
