@@ -18,13 +18,13 @@ const Modal: FC<IModalProps> = ({ children, isOpen, modalClassName, bodyClassNam
         >
             <div
                 className={`${modalClassName}
-                            mx-auto my-6 
+                            mx-auto 
                             h-3/4 w-[1000px] 
                             md:h-full md:w-full 
-                            lg:h-auto lg:w-3/6
+                            lg:h-4/5 lg:w-4/6
 
                             ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
-                            relative rounded-md 
+                            relative rounded-md md:rounded-none
                             transition duration-300
                             bg-white
                             `}
