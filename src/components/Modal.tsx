@@ -25,10 +25,14 @@ const Modal: FC<IModalProps> = ({ children, isOpen, modalClassName, bodyClassNam
         }
     }, [isOpen]);
 
+    if (!show) {
+        return <div></div>;
+    }
+
     return (
         <div
             className={`${
-                isOverlay ? 'custom-modal fixed inset-0 z-50 bg-black/50 flex items-center justify-center focus:outline outline-none' : ''
+                isOverlay ? 'custom-modal fixed inset-0 z-auto bg-black/50 flex items-center justify-center focus:outline outline-none' : ''
             } `}
         >
             <div
